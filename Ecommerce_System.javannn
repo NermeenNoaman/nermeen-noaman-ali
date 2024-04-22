@@ -1,0 +1,71 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.ecommerce_system;
+import javax.swing.JOptionPane;
+public class Ecommerce_System {
+
+    public static void main(String[] args) {
+          JOptionPane.showMessageDialog(null,"welcom to the E_commerse system");
+        
+       ElectronicProduct e1=new ElectronicProduct(1,"smartphone",599.9f,"Samsung",1);
+       
+        
+        ClothingProduct c1=new ClothingProduct("Medium","Cotton",2,"T-shirt",19.99f);
+ 
+        BookProduct p1=new BookProduct("O’Reilly","X Publications",3,"OOP",39.99f);
+    
+        
+        int customerId= Integer.parseInt(JOptionPane.showInputDialog("please enter your id:"));
+        String name=JOptionPane.showInputDialog("please enter your name:");
+          String address=JOptionPane.showInputDialog("please enter your address:");
+           Customer c=new Customer(customerId,name,address);
+          int nProducts=Integer.parseInt(JOptionPane.showInputDialog("How many products you want to add to your cart ?"));
+          System.out.println(nProducts);
+         Cart c2=new Cart(customerId,nProducts);
+         Order o1=new Order(customerId,1, nProducts);
+  
+               for(int i=0;i<nProducts;i++){
+                 int producttype= Integer.parseInt(JOptionPane.showInputDialog("which product would you like to add ?" 
+                         +"1-"+e1.getName() +"  2-"+c1.getName()+"  3-"+p1.getName()));
+     
+             switch (producttype) {
+                   case 1:
+                 
+                    c2.addProduct(e1, i);
+                     break;
+                   
+                     case 2:
+                 
+                      c2.addProduct(c1,i);
+                      break;
+
+                     case 3:
+                      c2.addProduct(p1,i);
+                      break;
+                     default:
+                          JOptionPane.showMessageDialog(null,"Invalid product type. Skipping...");
+                }
+             
+            }
+             int num= Integer.parseInt(JOptionPane.showInputDialog("would you like to place the order?"+"1- yes 2- no"));
+    
+          switch(num){
+              case 1:
+              
+                  c2.placeOrder();
+                  o1.setProducts(c2.getProducts());
+                  o1. printOrderInfo();
+                  break;
+              
+              case 2:
+                JOptionPane.showMessageDialog(null,"Order not placed.");
+                  
+                   break;
+              
+          }
+         }
+    }
+
+
